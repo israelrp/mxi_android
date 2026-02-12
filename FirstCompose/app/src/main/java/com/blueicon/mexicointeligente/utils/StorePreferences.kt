@@ -23,6 +23,7 @@ class StorePreferences(private val context: Context) {
         val USER_PHONE_KEY = stringPreferencesKey(Constants.USER_PHONE)
         val ONBOARDING_KEY = booleanPreferencesKey(Constants.ONBOARDING)
         val CREATE_REALSTATE__KEY = booleanPreferencesKey(Constants.CREATE_REALSTATE)
+        val MENU_POSITION_KEY = intPreferencesKey(Constants.MENU_POSITION)
     }
 
     val getEmailUser: Flow<String> = context.dataStore.data
@@ -89,6 +90,17 @@ class StorePreferences(private val context: Context) {
     suspend fun saveHideCreateRealState(status: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[CREATE_REALSTATE__KEY] = status
+        }
+    }
+
+    val getMenuPosition: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[MENU_POSITION_KEY] ?: 0
+        }
+
+    suspend fun saveMenuPosition(menuPosition: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[MENU_POSITION_KEY] = menuPosition
         }
     }
 }

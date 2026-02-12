@@ -9,7 +9,7 @@ object Constants {
     const val USER_NAME = "user_name"
     const val USER_ID = "user_id"
     const val USER_PHONE = "user_phone"
-
+    const val MENU_POSITION = "menu_position"
 
     const val ONBOARDING = "onboarding"
 
