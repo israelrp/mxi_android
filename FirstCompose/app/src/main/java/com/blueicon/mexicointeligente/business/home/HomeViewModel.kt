@@ -20,8 +20,8 @@ class HomeViewModel @Inject constructor(
 
     init {
         _itemsOperations.value = listOf(
-            OperationsHome(1,"Expediente inmobiliario", R.drawable.expediente),
-            OperationsHome(2,"Investigacion", R.drawable.investigacion),
+            OperationsHome(1,"Expediente", R.drawable.expediente),
+            OperationsHome(2,"Investigación", R.drawable.investigacion),
             OperationsHome(3,"Venta de polizas", R.drawable.ventapoliza),
         )
     }

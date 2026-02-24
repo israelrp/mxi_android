@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -77,35 +79,116 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                // Apply the verticalScroll modifier
-                //.verticalScroll(scrollState)
+            // Apply the verticalScroll modifier
+            //.verticalScroll(scrollState)
         ) {
             Text(
-                text = "¡Hola Jorge Alberto!",
+                text = "¡Bienvenido!",
                 fontSize = 22.sp,
                 fontFamily = openSansFamily,
                 fontWeight = FontWeight.SemiBold,
-                color = colorResource(id = R.color.redTitles),
+                color = colorResource(id = R.color.black),
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(top = 24.dp, start = 24.dp, end = 24.dp)
+                    .padding(top = 24.dp, start = 24.dp, end = 24.dp, bottom = 20.dp)
                     .fillMaxWidth()
             )
+
+            //Primeras cards
+            Column(
+                modifier = Modifier
+                    .padding(start = 24.dp, end = 24.dp)
+                    .fillMaxWidth()
+            )
+            {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    menuCard(
+                        value = listOperations[0],
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    menuCard(
+                        value = listOperations[1],
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                menuCard(
+                    value = listOperations[2],
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             Text(
-                text = "¿Qué te gustaría hacer hoy?",
+                text = "Resumen de operaciones",
                 fontSize = 16.sp,
                 fontFamily = openSansFamily,
-                fontWeight = FontWeight.Normal,
-                color = colorResource(id = R.color.redTitles),
+                fontWeight = FontWeight.SemiBold,
+                color = colorResource(id = R.color.black),
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(start = 24.dp, end = 24.dp, bottom = 16.dp)
+                    .padding(start = 24.dp, end = 24.dp, bottom = 24.dp, top = 24.dp)
                     .fillMaxWidth()
             )
 
+            //Segundas cards
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp, end = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            )
+            {
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(160.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                )
+                {
+                    // Columna Izquierda: Activas (más grande)
+                    operacionCardBig(
+                        title = "Activas",
+                        valor = "8",
+                        color = colorResource(id = R.color.greenStatus), // Verde
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                    )
+
+                    // Columna Derecha: Cerradas y Renovaciones
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        operacionCard(
+                            title = "Cerradas",
+                            valor = "51",
+                            color = colorResource(id = R.color.blueProteccion), // Gris azulado
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        operacionCard(
+                            title = "Renovaciones",
+                            valor = "0",
+                            color = colorResource(id = R.color.redTitles), // Rojo
+                            modifier = Modifier.weight(1f)
+                        )
+                    }//End Column
+
+                }//End Row
+            }
+
             // Add content dynamically or statically
-            LazyColumn(
+            /*LazyColumn(
                 modifier = Modifier
                     .wrapContentHeight()
             ) {
@@ -114,7 +197,7 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
                 }
             }
 
-            operationsResumeContent("8", "51", "0")
+            operationsResumeContent("8", "51", "0")*/
         }
 
         if (isLoading) {
@@ -134,10 +217,12 @@ fun actionsContent(value: OperationsHome) {
             cardColor = colorResource(id = R.color.cardExp)
             cardTextColor = colorResource(id = R.color.cardTextExp)
         }
+
         2 -> {
             cardColor = colorResource(id = R.color.cardInv)
             cardTextColor = colorResource(id = R.color.cardTextInv)
         }
+
         else -> {
             cardColor = colorResource(id = R.color.cardPolizas)
             cardTextColor = colorResource(id = R.color.cardTextPolizas)
@@ -155,7 +240,8 @@ fun actionsContent(value: OperationsHome) {
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .background(cardColor)
         ) {
             Row(
@@ -229,7 +315,8 @@ fun operationsResumeContent(countActive: String, countClose: String, countRenova
         {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.background(Color.White)
+                modifier = Modifier
+                    .background(Color.White)
                     .height(125.dp)
             )
             {
@@ -240,15 +327,38 @@ fun operationsResumeContent(countActive: String, countClose: String, countRenova
                     verticalAlignment = Alignment.CenterVertically
                 )
                 {
-                    operationResumeItem(countActive, "Activas", R.drawable.check, Modifier.weight(1f))
+                    operationResumeItem(
+                        countActive,
+                        "Activas",
+                        R.drawable.check,
+                        Modifier.weight(1f)
+                    )
 
-                    VerticalDivider(modifier = Modifier.height(110.dp), 1.dp, color = Color.LightGray)
+                    VerticalDivider(
+                        modifier = Modifier.height(110.dp),
+                        1.dp,
+                        color = Color.LightGray
+                    )
 
-                    operationResumeItem(countClose, "Cerradas", R.drawable.folder, Modifier.weight(1f))
+                    operationResumeItem(
+                        countClose,
+                        "Cerradas",
+                        R.drawable.folder,
+                        Modifier.weight(1f)
+                    )
 
-                    VerticalDivider(modifier = Modifier.height(110.dp), 1.dp, color = Color.LightGray)
+                    VerticalDivider(
+                        modifier = Modifier.height(110.dp),
+                        1.dp,
+                        color = Color.LightGray
+                    )
 
-                    operationResumeItem(countRenovation, "Renovaciones", R.drawable.recargar, Modifier.weight(1f))
+                    operationResumeItem(
+                        countRenovation,
+                        "Renovaciones",
+                        R.drawable.recargar,
+                        Modifier.weight(1f)
+                    )
 
                 }
             }
@@ -298,4 +408,109 @@ fun operationResumeItem(value: String, title: String, icon: Int, modifier: Modif
         )
     }
 
+}
+
+@Composable
+fun menuCard(value: OperationsHome, modifier: Modifier = Modifier) {
+    Card(
+        shape = RoundedCornerShape(15.dp), // Rounded corners
+        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp), // Shadow
+        modifier = modifier.height(90.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = value.imagen), // Reference your image resource
+                contentDescription = "A description of the image", // Mandatory for accessibility
+                contentScale = ContentScale.FillHeight,
+                alignment = Alignment.Center,
+                colorFilter = ColorFilter.tint(colorResource(R.color.red)),
+                modifier = Modifier
+                    .size(width = 30.dp, height = 30.dp)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                text = value.title,
+                fontSize = 13.sp,
+                fontFamily = openSansFamily,
+                fontWeight = FontWeight.SemiBold,
+                color = colorResource(id = R.color.redTitles),
+            )
+        }
+    }
+}
+
+@Composable
+fun operacionCard(title: String, valor: String, color: Color, modifier: Modifier = Modifier)
+{
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp), // Rounded corners
+        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp), // Shadow
+    ) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.White),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = valor,
+                fontSize = 24.sp,
+                fontFamily = openSansFamily,
+                fontWeight = FontWeight.Bold,
+                color = color,
+            )
+
+            Text(
+                text = title,
+                fontSize = 14.sp,
+                fontFamily = openSansFamily,
+                fontWeight = FontWeight.SemiBold,
+                color = color,
+            )
+        }
+    }
+}
+
+@Composable
+fun operacionCardBig(title: String, valor: String, color: Color, modifier: Modifier = Modifier)
+{
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp), // Rounded corners
+        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp), // Shadow
+    ) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.White),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = valor,
+                fontSize = 58.sp,
+                fontFamily = openSansFamily,
+                fontWeight = FontWeight.Bold,
+                color = color,
+            )
+
+            Text(
+                text = title,
+                fontSize = 16.sp,
+                fontFamily = openSansFamily,
+                fontWeight = FontWeight.SemiBold,
+                color = color,
+            )
+        }
+    }
 }

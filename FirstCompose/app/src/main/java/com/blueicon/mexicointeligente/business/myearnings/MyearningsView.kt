@@ -2,6 +2,7 @@ package com.blueicon.mexicointeligente.business.myearnings
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,9 +25,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
@@ -47,6 +52,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -151,7 +159,7 @@ fun ContentMyearningsView(navController: NavController, myearningsViewModel: Mye
                 fontSize = 20.sp,
                 fontFamily = openSansFamily,
                 fontWeight = FontWeight.SemiBold,
-                color = colorResource(id = R.color.redTitles),
+                color = colorResource(id = R.color.black),
                 textAlign = TextAlign.Start,
                 modifier = Modifier
                     .padding(start = 24.dp, end = 24.dp, top = 32.dp, bottom = 8.dp)
@@ -252,9 +260,10 @@ fun operationRowView(item: OperationsItem, navController: NavController) {
             {
                 Row(
                     modifier = Modifier
-                        .padding(bottom = 8.dp, top = 10.dp)
+                        .padding(bottom = 8.dp, top = 8.dp, start = 8.dp)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
                 )
                 {
 
@@ -283,37 +292,116 @@ fun operationRowView(item: OperationsItem, navController: NavController) {
                         }
                     }
 
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    IconButton(
+                        onClick = {
+
+                        },
+                        enabled = true
+                    )
+                    {
+                        Icon(
+                            painter = painterResource(R.drawable.editar),
+                            contentDescription = "Icono",
+                            modifier = Modifier
+                                .size(20.dp)
+                        )
+                    }
                 }//End Row
 
-                stepsView(item.step)
+                /*stepsView(item.step)
 
-                progressBarView((item.step.toFloat() / 7.toFloat()))
+                progressBarView((item.step.toFloat() / 7.toFloat()))*/
 
-                if (item.typeOpe.name == "Activas") {
-                    infoView(R.drawable.identificador, "ID", item.operationsId)
-                } else {
-                    infoView(R.drawable.identificador, "ID / Contrato", "${item.operationsId} / ${item.contract}")
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    )
+                    {
+
+                        if (item.typeOpe.name == "Activas") {
+                            infoView(R.drawable.identificador, "ID", item.operationsId)
+                        } else {
+                            infoView(R.drawable.identificador, "ID / Contrato", "${item.operationsId} / ${item.contract}")
+                        }
+
+                        infoView(R.drawable.home, "Dirección", item.address)
+
+                        if (item.typeOpe.name == "Cerradas") {
+                            infoView(R.drawable.propietario, "Propietario", item.landlord)
+                        }
+
+                        infoView(R.drawable.inquilino, "Inquilino", item.tenant)
+
+                        if (item.status == "Disponible") {
+                            infoView(R.drawable.comprobado, "Contratos", "Disponible para revisión")
+                        } else {
+                            infoView(R.drawable.alerta, "Perfil de inquilino", item.status)
+                        }
+
+                        if (item.typeOpe.name == "Cerradas") {
+                            infoView(R.drawable.recargar, "Fecha de renovación", item.dateRenovation)
+                        }
+
+                    }//End Column
+
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+
+                    )
+                    {
+                        Text(
+                            text = "Pasos completados",
+                            fontSize = 14.sp,
+                            color = colorResource(id = R.color.black),
+                            fontFamily = openSansFamily,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
+
+                        stepProgressIndicator(item.step, 7)
+                    }
+
+                }//End Row
+
+                Button(
+                    onClick = {
+                        Log.e("OnboardingView", "Llendo a configuracion")
+                        /*CoroutineScope(Dispatchers.IO).launch {
+                            dataStores.saveStatusOnboarding(true)
+                        }*/
+                        navController.navigate("EarningDetail/${item.step}")
+                    },
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = colorResource(id = R.color.white),
+                        containerColor = colorResource(id = R.color.redTitles)
+                    ),
+                    modifier = Modifier
+                        .padding(bottom = 24.dp, top = 24.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .width(180.dp)
+                        .height(40.dp)
+                )
+                {
+                    Text(
+                        text = "Ver expediente",
+                        fontSize = 14.sp,
+                        color = colorResource(id = R.color.white),
+                        fontFamily = openSansFamily,
+                        fontWeight = FontWeight.SemiBold,
+                    )
                 }
-
-                infoView(R.drawable.home, "Dirección", item.address)
-
-                if (item.typeOpe.name == "Cerradas") {
-                    infoView(R.drawable.propietario, "Propietario", item.landlord)
-                }
-
-                infoView(R.drawable.inquilino, "Inquilino", item.tenant)
-
-                if (item.status == "Disponible") {
-                    infoView(R.drawable.comprobado, "Contratos", "Disponible para revisión")
-                } else {
-                    infoView(R.drawable.alerta, "Perfil de inquilino", item.status)
-                }
-
-                if (item.typeOpe.name == "Cerradas") {
-                    infoView(R.drawable.recargar, "Fecha de renovación", item.dateRenovation)
-                }
-
-                ClickableText (
+                /*ClickableText (
                     text = AnnotatedString("Ver expediente"),
                     style = TextStyle(
                         fontSize = 14.sp,
@@ -333,7 +421,7 @@ fun operationRowView(item: OperationsItem, navController: NavController) {
                     modifier = Modifier
                         .padding(bottom = 24.dp, top = 8.dp)
                         .fillMaxWidth()
-                )
+                )*/
 
             }//End Column
 
@@ -352,14 +440,14 @@ fun statusOpeView(image: Int, title: String, backGroundColor: Color) {
     )
     {
 
-        Image(
+        /*Image(
             painter = painterResource(image), // Reference your image resource
             contentDescription = null, // Mandatory for accessibility
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .padding(top = 2.dp, bottom = 2.dp)
                 .size(16.dp)
-        )
+        )*/
 
         Text(
             text = title,
@@ -455,7 +543,7 @@ fun infoView(image: Int, title: String, value: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .padding(start = 32.dp, end = 24.dp, bottom = 16.dp)
+            .padding(start = 16.dp, end = 8.dp, bottom = 16.dp)
             .fillMaxWidth()
     )
     {
@@ -504,4 +592,40 @@ fun infoView(image: Int, title: String, value: String) {
 
     }
 
+}
+
+@Composable
+fun stepProgressIndicator(pasoActual: Int, totalPasos: Int) {
+    val progreso = pasoActual.toFloat() / totalPasos
+
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.size(90.dp)) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val strokeWidth = 10.dp.toPx()
+
+            // 1. Dibujar el círculo de fondo (Gris)
+            drawCircle(
+                color = Color.LightGray,
+                style = Stroke(width = strokeWidth),
+                radius = (size.minDimension / 1.8 - strokeWidth / 1.8).toFloat()
+            )
+
+            // 2. Dibujar el arco de progreso (Rojo)
+            drawArc(
+                color = Color(0xFFB01C21), // Color rojo de la imagen
+                startAngle = -90f, // Empieza arriba
+                sweepAngle = 360f * progreso,
+                useCenter = false,
+                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
+            )
+        }
+
+        // 3. Texto central
+        Text(
+            text = "$pasoActual/$totalPasos",
+            fontSize = 22.sp,
+            color = colorResource(id = R.color.black),
+            fontFamily = openSansFamily,
+            fontWeight = FontWeight.SemiBold,
+        )
+    }
 }

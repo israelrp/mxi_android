@@ -112,23 +112,37 @@ fun ContentMyAccountView(navController: NavController) {
                         contentDescription = null, // Mandatory for accessibility
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .size(70.dp)
+                            .size(115.dp)
                             .padding(top = 8.dp)
                             .clip(CircleShape)
                         //.border(0.dp, Color.Black, CircleShape)
                         // Optional parameters: contentScale, colorFilter, alpha, etc.
                     )
 
-                    businessCardHeader()
+                    //businessCardHeader()
 
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_logo), // Reference your image resource
-                        contentDescription = "A description of the image", // Mandatory for accessibility
-                        contentScale = ContentScale.Fit,
-                        colorFilter = ColorFilter.tint(colorResource(R.color.red)),
+                    Text(
+                        text = "Jorge Alberto",
+                        fontSize = 18.sp,
+                        fontFamily = openSansFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        color = colorResource(id = R.color.black),
+                        textAlign = TextAlign.Start,
                         modifier = Modifier
-                            .size(100.dp, height = 22.dp)
-                            .fillMaxWidth()
+                        .padding(top = 16.dp)
+                        //    .fillMaxWidth()
+                    )
+
+                    Text(
+                        text = "Asesor",
+                        fontSize = 16.sp,
+                        fontFamily = openSansFamily,
+                        fontWeight = FontWeight.Normal,
+                        color = colorResource(id = R.color.black),
+                        //textAlign = TextAlign.Start,
+                        //modifier = Modifier
+                        //    .padding(top = 24.dp, start = 24.dp, end = 24.dp)
+                        //    .fillMaxWidth()
                     )
 
                     ClickableText (
@@ -137,7 +151,7 @@ fun ContentMyAccountView(navController: NavController) {
                             fontSize = 16.sp,
                             fontFamily = openSansFamily,
                             fontWeight = FontWeight.SemiBold,
-                            color = colorResource(id = R.color.redTitles),
+                            color = colorResource(id = R.color.black),
                             textAlign = TextAlign.Center,
                             textDecoration = TextDecoration.Underline
                         ),
