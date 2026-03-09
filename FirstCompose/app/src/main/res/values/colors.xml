@@ -8,6 +8,9 @@
     <color name="gray">#7a8591</color>
     <color name="grayText">#413f49</color>
     <color name="graySearch">#808181</color>
+    <color name="grayBtnBack">#E0E1E7</color>
+    <color name="blue">#263883</color>
+    <color name="yellow">#754B2B</color>
 
     <color name="cardExp">#f4e7f5</color>
     <color name="cardTextExp">#781e7e</color>

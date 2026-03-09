@@ -1,8 +1,10 @@
 package com.blueicon.mexicointeligente.business.home
 
+import android.Manifest
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,6 +51,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,13 +65,21 @@ fun HomeView(navController: NavController, viewModel: HomeViewModel) {
     }
 }
 
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
 
     var isLoading by remember { mutableStateOf(false) }
+    var isOkGoToSteps by remember { mutableStateOf(false) }
     var pageTitle by remember { mutableStateOf("Cargando...") }
     val scrollState = rememberScrollState()
     val listOperations by viewModel.itemsOperations.collectAsState()
+    val permissionsState = rememberMultiplePermissionsState(
+        permissions = listOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+    )
 
     Box(
         modifier = Modifier
@@ -101,6 +113,16 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
                     .fillMaxWidth()
             )
             {
+                val allPermissionsGranted = permissionsState.allPermissionsGranted
+                val revokedPermissionsSize = permissionsState.revokedPermissions.size
+
+                if (allPermissionsGranted) {
+                    isOkGoToSteps = true
+                    //navController.navigate("StepOne")
+                } else {
+
+                }
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -121,6 +143,13 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
                 menuCard(
                     value = listOperations[2],
                     modifier = Modifier.fillMaxWidth()
+                        .clickable() {
+                            if (!isOkGoToSteps) {
+                                permissionsState.launchMultiplePermissionRequest()
+                            } else {
+                                navController.navigate("StepOne")
+                            }
+                        }
                 )
             }
 

@@ -8,9 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.blueicon.mexicointeligente.business.enrolment.entercode.EnterCodeView
-import com.blueicon.mexicointeligente.views.login.LoginView
-import com.blueicon.mexicointeligente.views.login.LoginViewModel
-import com.blueicon.mexicointeligente.views.maintwo.MainTwoView
 import com.blueicon.mexicointeligente.business.enrolment.onboarding.OnboardingView
 import com.blueicon.mexicointeligente.business.enrolment.phonenumber.PhoneNumberViewModel
 import com.blueicon.mexicointeligente.business.enrolment.phonenumber.PhonenumberView
@@ -26,9 +23,58 @@ import com.blueicon.mexicointeligente.business.myaccount.realstate.RealStateView
 import com.blueicon.mexicointeligente.business.myaccount.termsconditions.TermsConditionsView
 import com.blueicon.mexicointeligente.business.myearnings.MyearningsViewModel
 import com.blueicon.mexicointeligente.business.myearnings.earningdetail.EarningDetailView
+import com.blueicon.mexicointeligente.business.steps.five.StepFiveView
+import com.blueicon.mexicointeligente.business.steps.four.StepFourView
+import com.blueicon.mexicointeligente.business.steps.one.StepOneView
+import com.blueicon.mexicointeligente.business.steps.six.StepSixView
+import com.blueicon.mexicointeligente.business.steps.tree.StepTreeView
+import com.blueicon.mexicointeligente.business.steps.two.StepTwoView
 import com.blueicon.mexicointeligente.views.DetailView
 import com.blueicon.mexicointeligente.views.RegisterView
 import com.blueicon.mexicointeligente.views.WelcomeView
+import com.blueicon.mexicointeligente.views.login.LoginView
+import com.blueicon.mexicointeligente.views.login.LoginViewModel
+import com.blueicon.mexicointeligente.views.maintwo.MainTwoView
+
+/*val LocalNavStack = staticCompositionLocalOf <NavBackStack<NavKey>> {
+    error("Nose puede inicializar")
+}
+
+@Serializable
+object Splash : NavKey
+
+@Serializable
+object Onboarding : NavKey
+
+@Serializable
+object PhoneNumber : NavKey
+
+@Serializable
+object EnterCode : NavKey
+
+@Serializable
+object MenuNavigation : NavKey
+
+@Serializable
+object Configuration : NavKey
+
+@Serializable
+object BankDetail : NavKey
+
+@Serializable
+object RealState : NavKey
+
+@Serializable
+object TermsConditions : NavKey
+
+@Serializable
+object AdminTeam : NavKey
+
+@Serializable
+object CreateAdvisor : NavKey
+
+@Serializable
+data class EarningDetail(val id: Int) : NavKey*/
 
 @Composable
 fun NavManager(
@@ -40,34 +86,71 @@ fun NavManager(
     val homeViewModel: HomeViewModel = viewModel()
     val myearningsViewModel: MyearningsViewModel = viewModel()
     val adminTeamViewModel: AdminTeamViewModel = viewModel()
+    /*val backStack = rememberNavBackStack(Splash)
+
+    NavDisplay(
+        backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
+        // Essential decorators for production apps
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        // Entry provider using DSL
+        entryProvider = entryProvider {
+            entry<Splash> {
+                SplashView(navController)
+            }
+            entry<Onboarding> {
+                OnboardingView(navController)
+            }
+            entry<PhoneNumber> {
+                PhonenumberView(navController, phoneNumberViewModel)
+            }
+            entry<EnterCode> {
+                EnterCodeView(navController, phoneNumberViewModel)
+            }
+            entry<MenuNavigation> {
+                MenuNavigationView(navController, homeViewModel, myearningsViewModel)
+            }
+            entry<Configuration> {
+                ConfigurationView(navController)
+            }
+            entry<BankDetail> {
+                BankDetailView(navController)
+            }
+            entry<RealState> {
+                RealStateView(navController)
+            }
+            entry<TermsConditions> {
+                TermsConditionsView(navController)
+            }
+            entry<AdminTeam> {
+                AdminTeamView(navController, adminTeamViewModel)
+            }
+            entry<CreateAdvisor> {
+                CreateAdvisorView(navController)
+            }
+            entry<EarningDetail> { key ->
+                EarningDetailView(navController, key.id)
+            }
+        },
+        // Smooth animations
+        transitionSpec = {
+            slideInHorizontally { it } togetherWith
+                    slideOutHorizontally { -it }
+        },
+        popTransitionSpec = {
+            slideInHorizontally { -it } togetherWith
+                    slideOutHorizontally { it }
+        }
+    )*/
 
     NavHost(
         navController = navController,
         startDestination = "Splash",
-        /*enterTransition = {
-            slideIntoContainer(
-                AnimatedContentTransitionScope.SlideDirection.Left,
-                animationSpec = tween(1000)
-            )
-        },
-        exitTransition = {
-            slideOutOfContainer(
-                AnimatedContentTransitionScope.SlideDirection.Left,
-                animationSpec = tween(1000)
-            )
-        },
-        popEnterTransition = { // Transition when popping the back stack (e.g., Back button)
-            slideIntoContainer(
-                AnimatedContentTransitionScope.SlideDirection.Right,
-                animationSpec = tween(1000)
-            )
-        },
-        popExitTransition = {
-            slideOutOfContainer(
-                AnimatedContentTransitionScope.SlideDirection.Right,
-                animationSpec = tween(1000)
-            )
-        }*/) {
+        )
+    {
         composable("Splash") {
             SplashView(navController)
         }
@@ -106,6 +189,24 @@ fun NavManager(
         )) {
             val step = it.arguments?.getInt("step") ?: 0
             EarningDetailView(navController, step)
+        }
+        composable("StepOne") {
+            StepOneView(navController)
+        }
+        composable("StepTwo") {
+            StepTwoView(navController)
+        }
+        composable("StepTree") {
+            StepTreeView(navController)
+        }
+        composable("StepFour") {
+            StepFourView(navController)
+        }
+        composable("StepFive") {
+            StepFiveView(navController)
+        }
+        composable("StepSix") {
+            StepSixView(navController)
         }
 
 

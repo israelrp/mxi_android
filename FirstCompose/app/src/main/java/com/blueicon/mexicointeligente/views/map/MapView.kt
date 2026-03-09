@@ -111,7 +111,8 @@ fun ContentMapView() {
             properties = mapProperties,
             modifier = Modifier.matchParentSize(),
             cameraPositionState = cameraPositionState
-        ) {
+        )
+        {
 
             val allPermissionsGranted = permissionsState.allPermissionsGranted
             val revokedPermissionsSize = permissionsState.revokedPermissions.size

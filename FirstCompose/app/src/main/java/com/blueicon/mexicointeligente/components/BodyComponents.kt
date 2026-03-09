@@ -1,10 +1,13 @@
 package com.blueicon.mexicointeligente.components
 
+import android.icu.util.Calendar
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +22,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,6 +50,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -61,6 +66,7 @@ import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
 import com.blueicon.mexicointeligente.enums.TypeKeyboard
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
+import java.util.Date
 
 @Composable
 fun TitleView(title: String, subtitle: String) {
@@ -409,7 +415,7 @@ fun genericMenu(opciones: List<String>, onOptionSelected: (String) -> Unit)
         onExpandedChange = { expandido = !expandido },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp, bottom = 24.dp, start = 24.dp, end = 24.dp)
+            .padding(top = 8.dp, bottom = 32.dp, start = 24.dp, end = 24.dp)
     ) {
         OutlinedTextField(
             value = textoSeleccionado,
@@ -485,4 +491,161 @@ fun genericCenterAlignedTopAppBar(title: String, navController: NavController)
             }
         }
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun genericTopAppBarWithoutBack(title: String, navController: NavController)
+{
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                text = title,
+                color = Color.Black,
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontFamily = openSansFamily,
+                    fontWeight = FontWeight.SemiBold
+                )
+            )
+        },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface, // Color del texto
+            navigationIconContentColor = MaterialTheme.colorScheme.onSurface// Iconos
+        )
+    )
+}
+
+@Composable
+fun datePicker(label: String, value: String,  onValueChange: (String) -> Unit) {
+
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    calendar.time = Date()
+
+    val date = remember { mutableStateOf("") }
+    val datePicker = android.app.DatePickerDialog(
+        context,
+        { _, mYear, mMonth, mDay -> date.value = "$mDay/${mMonth + 1}/$mYear" },
+        year,
+        month,
+        day
+    )
+
+    Column (
+        modifier = Modifier
+            .padding(start = 24.dp, end = 24.dp, bottom = 14.dp)
+    )
+    {
+
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            fontFamily = openSansFamily,
+            fontWeight = FontWeight.Normal,
+            color = colorResource(R.color.black),
+            modifier = Modifier
+                .padding(bottom = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = date.value,
+            onValueChange = onValueChange,
+            shape = RoundedCornerShape(12.dp),
+            singleLine = true,
+            enabled = false,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color.LightGray,
+                unfocusedBorderColor = Color.Gray
+            ),
+            textStyle = TextStyle(
+                fontSize = 14.sp, fontFamily = openSansFamily,
+                fontWeight = FontWeight.Normal,
+                color = Color.Black,
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .clickable {
+                    datePicker.show()
+                }
+        )
+    }
+}
+
+@Composable
+fun textAreaField(label: String, placeHolder: String, value: String, type: TypeKeyboard, onValueChange: (String) -> Unit) {
+
+    var typeToAsign = KeyboardType.Text
+    var capitalizationToAsign = KeyboardCapitalization.None
+
+    when (type) {
+        TypeKeyboard.NUMERIC -> {
+            typeToAsign = KeyboardType.Number
+        }
+        TypeKeyboard.EMAIL -> {
+            typeToAsign = KeyboardType.Email
+        }
+        TypeKeyboard.PASSWORD -> {
+            typeToAsign = KeyboardType.Password
+        }
+        else -> { // Opción default
+            capitalizationToAsign = KeyboardCapitalization.Words
+        }
+    }
+
+    Column (
+        modifier = Modifier
+            .padding(start = 24.dp, end = 24.dp, bottom = 14.dp),
+        verticalArrangement = Arrangement.Top
+    )
+    {
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            fontFamily = openSansFamily,
+            fontWeight = FontWeight.Normal,
+            color = colorResource(R.color.black),
+            modifier = Modifier
+                .padding(bottom = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier
+                .fillMaxWidth() // Makes the text field span the width of its container
+                .height(150.dp),
+            minLines = 5,
+            maxLines = 10,
+            placeholder = {
+                Text(text = placeHolder,
+                    color = Color.Black,
+                    fontSize = 12.sp,
+                    fontFamily = openSansFamily,
+                    fontWeight = FontWeight.Normal,
+                )
+            },
+            shape = RoundedCornerShape(10.dp),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = typeToAsign,
+                capitalization = capitalizationToAsign
+            ),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color.Black.copy(alpha = 0.4f),
+                unfocusedBorderColor = Color.Black.copy(alpha = 0.5f)
+            ),
+            textStyle = TextStyle(
+                fontSize = 12.sp,
+                fontFamily = openSansFamily,
+                fontWeight = FontWeight.Normal,
+                color = Color.Black,
+            )
+        )
+    }
 }
