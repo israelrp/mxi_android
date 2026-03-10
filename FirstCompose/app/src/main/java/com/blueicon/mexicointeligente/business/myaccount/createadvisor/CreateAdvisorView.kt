@@ -2,6 +2,7 @@ package com.blueicon.mexicointeligente.business.myaccount.createadvisor
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -58,6 +59,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun CreateAdvisorView(navController: NavController) {
     val focusManager = LocalFocusManager.current
+
+    BackHandler(enabled = true) {
+        // No hacer nada o mostrar un mensaje "No puedes salir"
+    }
 
     Scaffold(
         modifier = Modifier.pointerInput(Unit) {

@@ -1,6 +1,7 @@
 package com.blueicon.mexicointeligente.business.steps.two
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -86,6 +87,10 @@ fun StepTwoView(navController: NavController) {
 
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
+
+    BackHandler(enabled = true) {
+        // No hacer nada o mostrar un mensaje "No puedes salir"
+    }
 
     Scaffold(
         modifier = Modifier.pointerInput(Unit) {

@@ -1,6 +1,7 @@
 package com.blueicon.mexicointeligente.business.steps.five
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -56,6 +57,10 @@ fun StepFiveView(navController: NavController) {
 
     val focusManager = LocalFocusManager.current
     LocalContext.current
+
+    BackHandler(enabled = true) {
+        // No hacer nada o mostrar un mensaje "No puedes salir"
+    }
 
     Scaffold(
         modifier = Modifier.pointerInput(Unit) {

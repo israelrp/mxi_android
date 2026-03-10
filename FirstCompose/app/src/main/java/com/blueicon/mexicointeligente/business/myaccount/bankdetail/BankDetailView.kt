@@ -1,6 +1,7 @@
 package com.blueicon.mexicointeligente.business.myaccount.bankdetail
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -56,6 +57,10 @@ import com.blueicon.mexicointeligente.ui.theme.openSansFamily
 @Composable
 fun BankDetailView(navController: NavController) {
     val focusManager = LocalFocusManager.current
+
+    BackHandler(enabled = true) {
+        // No hacer nada o mostrar un mensaje "No puedes salir"
+    }
 
     Scaffold(
         modifier = Modifier.pointerInput(Unit) {

@@ -1,6 +1,7 @@
 package com.blueicon.mexicointeligente.business.myearnings.earningdetail
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -59,6 +60,10 @@ import com.blueicon.mexicointeligente.ui.theme.openSansFamily
 @Composable
 fun EarningDetailView(navController: NavController, step: Int) {
     val focusManager = LocalFocusManager.current
+
+    BackHandler(enabled = true) {
+        // No hacer nada o mostrar un mensaje "No puedes salir"
+    }
 
     Scaffold(
         modifier = Modifier.pointerInput(Unit) {
