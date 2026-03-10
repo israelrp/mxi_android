@@ -4,13 +4,14 @@ import com.blueicon.mexicointeligente.R
 
 data class NavItem(
     val title: String,
-    val icon: Int
+    val icon: Int,
+    val route: String,
 )
 
 object NavItemList {
     val navItemList = listOf(
-        NavItem("Inicio", R.drawable.home),
-        NavItem("Mis ganancias", R.drawable.money),
-        NavItem("Mi cuenta", R.drawable.usuarion),
+        NavItem("Inicio", R.drawable.home, "home"),
+        NavItem("Mis ganancias", R.drawable.money, "myearnings"),
+        NavItem("Mi cuenta", R.drawable.usuarion, "myaccount"),
     )
 }

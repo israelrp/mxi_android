@@ -3,7 +3,6 @@ package com.blueicon.mexicointeligente.business.steps.six
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,8 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
-import com.blueicon.mexicointeligente.business.steps.five.ContentStepFiveView
-import com.blueicon.mexicointeligente.business.steps.two.servicesComponent
 import com.blueicon.mexicointeligente.components.StepIndicator
 import com.blueicon.mexicointeligente.components.genericTopAppBarWithoutBack
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
@@ -74,7 +71,7 @@ fun ContentStepSixView(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 40.dp)
+            .padding(top = 80.dp)
             .background(Color.White)
     )
     {

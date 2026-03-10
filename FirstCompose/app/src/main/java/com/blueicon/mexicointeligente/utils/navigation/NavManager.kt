@@ -12,8 +12,10 @@ import com.blueicon.mexicointeligente.business.enrolment.onboarding.OnboardingVi
 import com.blueicon.mexicointeligente.business.enrolment.phonenumber.PhoneNumberViewModel
 import com.blueicon.mexicointeligente.business.enrolment.phonenumber.PhonenumberView
 import com.blueicon.mexicointeligente.business.enrolment.splash.SplashView
+import com.blueicon.mexicointeligente.business.home.HomeView
 import com.blueicon.mexicointeligente.business.home.HomeViewModel
 import com.blueicon.mexicointeligente.business.menunavigation.MenuNavigationView
+import com.blueicon.mexicointeligente.business.myaccount.MyAccountView
 import com.blueicon.mexicointeligente.business.myaccount.adminteam.AdminTeamView
 import com.blueicon.mexicointeligente.business.myaccount.adminteam.AdminTeamViewModel
 import com.blueicon.mexicointeligente.business.myaccount.bankdetail.BankDetailView
@@ -21,6 +23,7 @@ import com.blueicon.mexicointeligente.business.myaccount.configuration.Configura
 import com.blueicon.mexicointeligente.business.myaccount.createadvisor.CreateAdvisorView
 import com.blueicon.mexicointeligente.business.myaccount.realstate.RealStateView
 import com.blueicon.mexicointeligente.business.myaccount.termsconditions.TermsConditionsView
+import com.blueicon.mexicointeligente.business.myearnings.MyearningsView
 import com.blueicon.mexicointeligente.business.myearnings.MyearningsViewModel
 import com.blueicon.mexicointeligente.business.myearnings.earningdetail.EarningDetailView
 import com.blueicon.mexicointeligente.business.steps.five.StepFiveView
@@ -165,6 +168,15 @@ fun NavManager(
         }
         composable("MenuNavigation") {
             MenuNavigationView(navController, homeViewModel, myearningsViewModel)
+        }
+        composable("home") {
+            HomeView(navController, homeViewModel)
+        }
+        composable("myearnings") {
+            MyearningsView(navController, myearningsViewModel)
+        }
+        composable("myaccount") {
+            MyAccountView(navController)
         }
         composable("Configuration") {
             ConfigurationView(navController)

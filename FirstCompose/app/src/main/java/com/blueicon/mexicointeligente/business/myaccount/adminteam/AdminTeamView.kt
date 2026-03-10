@@ -78,7 +78,7 @@ fun ContentAdminTeamView(navController: NavController, adminTeamViewModel: Admin
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 40.dp)
+            .padding(top = 80.dp)
             .background(Color.White)
     )
     {

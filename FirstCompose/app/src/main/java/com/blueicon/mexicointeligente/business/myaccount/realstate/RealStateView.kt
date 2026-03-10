@@ -86,7 +86,7 @@ fun ContentRealStateViewView(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 40.dp)
+            .padding(top = 80.dp)
             .background(Color.White)
     )
     {

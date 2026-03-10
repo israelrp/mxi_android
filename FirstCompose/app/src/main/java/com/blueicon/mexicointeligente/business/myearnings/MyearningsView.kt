@@ -92,7 +92,7 @@ fun ContentMyearningsView(navController: NavController, myearningsViewModel: Mye
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 80.dp)
+            .padding(bottom = 80.dp, top = 16.dp)
             .background(Color.White)
     )
     {
