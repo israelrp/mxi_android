@@ -39,46 +39,6 @@ import com.blueicon.mexicointeligente.views.login.LoginView
 import com.blueicon.mexicointeligente.views.login.LoginViewModel
 import com.blueicon.mexicointeligente.views.maintwo.MainTwoView
 
-/*val LocalNavStack = staticCompositionLocalOf <NavBackStack<NavKey>> {
-    error("Nose puede inicializar")
-}
-
-@Serializable
-object Splash : NavKey
-
-@Serializable
-object Onboarding : NavKey
-
-@Serializable
-object PhoneNumber : NavKey
-
-@Serializable
-object EnterCode : NavKey
-
-@Serializable
-object MenuNavigation : NavKey
-
-@Serializable
-object Configuration : NavKey
-
-@Serializable
-object BankDetail : NavKey
-
-@Serializable
-object RealState : NavKey
-
-@Serializable
-object TermsConditions : NavKey
-
-@Serializable
-object AdminTeam : NavKey
-
-@Serializable
-object CreateAdvisor : NavKey
-
-@Serializable
-data class EarningDetail(val id: Int) : NavKey*/
-
 @Composable
 fun NavManager(
     //viewModel: ViewModel
@@ -89,65 +49,6 @@ fun NavManager(
     val homeViewModel: HomeViewModel = viewModel()
     val myearningsViewModel: MyearningsViewModel = viewModel()
     val adminTeamViewModel: AdminTeamViewModel = viewModel()
-    /*val backStack = rememberNavBackStack(Splash)
-
-    NavDisplay(
-        backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
-        // Essential decorators for production apps
-        entryDecorators = listOf(
-            rememberSaveableStateHolderNavEntryDecorator(),
-            rememberViewModelStoreNavEntryDecorator()
-        ),
-        // Entry provider using DSL
-        entryProvider = entryProvider {
-            entry<Splash> {
-                SplashView(navController)
-            }
-            entry<Onboarding> {
-                OnboardingView(navController)
-            }
-            entry<PhoneNumber> {
-                PhonenumberView(navController, phoneNumberViewModel)
-            }
-            entry<EnterCode> {
-                EnterCodeView(navController, phoneNumberViewModel)
-            }
-            entry<MenuNavigation> {
-                MenuNavigationView(navController, homeViewModel, myearningsViewModel)
-            }
-            entry<Configuration> {
-                ConfigurationView(navController)
-            }
-            entry<BankDetail> {
-                BankDetailView(navController)
-            }
-            entry<RealState> {
-                RealStateView(navController)
-            }
-            entry<TermsConditions> {
-                TermsConditionsView(navController)
-            }
-            entry<AdminTeam> {
-                AdminTeamView(navController, adminTeamViewModel)
-            }
-            entry<CreateAdvisor> {
-                CreateAdvisorView(navController)
-            }
-            entry<EarningDetail> { key ->
-                EarningDetailView(navController, key.id)
-            }
-        },
-        // Smooth animations
-        transitionSpec = {
-            slideInHorizontally { it } togetherWith
-                    slideOutHorizontally { -it }
-        },
-        popTransitionSpec = {
-            slideInHorizontally { -it } togetherWith
-                    slideOutHorizontally { it }
-        }
-    )*/
 
     NavHost(
         navController = navController,

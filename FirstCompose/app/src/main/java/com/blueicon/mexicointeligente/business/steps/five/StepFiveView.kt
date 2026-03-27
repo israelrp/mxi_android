@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
 import com.blueicon.mexicointeligente.business.steps.four.ContentStepFourView
 import com.blueicon.mexicointeligente.business.steps.two.servicesComponent
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.StepIndicator
 import com.blueicon.mexicointeligente.components.genericTopAppBarWithoutBack
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
@@ -84,14 +85,7 @@ fun ContentStepFiveView(navController: NavController) {
     val scrollState = rememberScrollState()
     var isSelected by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
-
+    GenericBox {
         Row(
             modifier = Modifier
                 .padding(top = 24.dp, start = 16.dp, end = 16.dp)
@@ -311,7 +305,5 @@ fun ContentStepFiveView(navController: NavController) {
                 )
             }
         }
-
-    }//End Box
-
+    }
 }

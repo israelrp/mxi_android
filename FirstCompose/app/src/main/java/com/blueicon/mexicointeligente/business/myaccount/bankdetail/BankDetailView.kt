@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.genericCenterAlignedTopAppBar
 import com.blueicon.mexicointeligente.components.genericMenu
 import com.blueicon.mexicointeligente.components.inputField
@@ -95,14 +96,7 @@ fun ContentBankDetailView(navController: NavController) {
         "Arrendamiento"
     )
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
-
+    GenericBox {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -265,9 +259,7 @@ fun ContentBankDetailView(navController: NavController) {
             }
 
         }//End Column
-
-    }//End Box
-
+    }
 }
 
 @Composable

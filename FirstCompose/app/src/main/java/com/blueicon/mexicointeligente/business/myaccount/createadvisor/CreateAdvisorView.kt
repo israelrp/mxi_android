@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.genericCenterAlignedTopAppBar
 import com.blueicon.mexicointeligente.components.inputField
 import com.blueicon.mexicointeligente.enums.TypeKeyboard
@@ -87,14 +88,7 @@ fun ContentCreateAdvisorView(navController: NavController) {
     var correo by remember { mutableStateOf("") }
     var isAdvisor by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
-
+    GenericBox {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -219,7 +213,5 @@ fun ContentCreateAdvisorView(navController: NavController) {
             )
 
         }//End Column
-
-    }//End Box
-
+    }
 }

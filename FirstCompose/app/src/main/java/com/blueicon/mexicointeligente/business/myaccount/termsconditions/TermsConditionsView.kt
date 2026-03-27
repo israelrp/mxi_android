@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.dialogConfirmView
 import com.blueicon.mexicointeligente.components.genericCenterAlignedTopAppBar
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
@@ -77,14 +78,7 @@ fun ContentTermsConditionsView(navController: NavController) {
     var isChecked2 by remember { mutableStateOf(false) }
     var isChecked3 by remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
-
+    GenericBox {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -240,7 +234,5 @@ fun ContentTermsConditionsView(navController: NavController) {
                 }
             )
         }
-
-    }//End Box
-
+    }
 }

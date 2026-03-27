@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.StepIndicator
 import com.blueicon.mexicointeligente.components.genericTopAppBarWithoutBack
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
@@ -48,9 +49,9 @@ fun StepSixView(navController: NavController) {
     val focusManager = LocalFocusManager.current
     LocalContext.current
 
-    BackHandler(enabled = true) {
+    //BackHandler(enabled = true) {
         // No hacer nada o mostrar un mensaje "No puedes salir"
-    }
+    //}
 
     Scaffold(
         modifier = Modifier.pointerInput(Unit) {
@@ -73,14 +74,7 @@ fun ContentStepSixView(navController: NavController) {
 
     val scrollState = rememberScrollState()
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
-
+    GenericBox {
         Row(
             modifier = Modifier
                 .padding(top = 24.dp, start = 16.dp, end = 16.dp)
@@ -487,6 +481,5 @@ fun ContentStepSixView(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
             )
         }
-
-    }//End Box
+    }
 }

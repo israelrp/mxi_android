@@ -40,6 +40,7 @@ import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
 import com.blueicon.mexicointeligente.business.steps.tree.ContentStepTreeView
 import com.blueicon.mexicointeligente.business.steps.tree.radioGeneric
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.StepIndicator
 import com.blueicon.mexicointeligente.components.datePicker
 import com.blueicon.mexicointeligente.components.genericTopAppBarWithoutBack
@@ -84,14 +85,7 @@ fun ContentStepFourView(navController: NavController) {
     var fechaContrato by remember { mutableStateOf("") }
     var comentarios by remember { mutableStateOf("") }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
-
+    GenericBox {
         Row(
             modifier = Modifier
                 .padding(top = 24.dp, start = 16.dp, end = 16.dp)
@@ -195,7 +189,5 @@ fun ContentStepFourView(navController: NavController) {
                 )
             }
         }
-
-    }//End Box
-
+    }
 }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
@@ -96,7 +97,10 @@ fun OnBoardingPager(
     navController: NavController,
     dataStores: StorePreferences
 ) {
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier
+            .safeDrawingPadding()
+    ) {
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -122,7 +126,7 @@ fun OnBoardingPager(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 24.dp, bottom = 30.dp, top = 16.dp)
+                    .padding(start = 16.dp, end = 24.dp, bottom = 20.dp, top = 16.dp)
             )
 
             HorizontalPager(state = pagerState) { page ->
@@ -140,7 +144,7 @@ fun OnBoardingPager(
                         Box(modifier = Modifier
                                 .offset(x = 4.dp, y = 4.dp)
                                 .shadow(elevation = 10.dp, shape = RoundedCornerShape(15.dp), clip = false, spotColor = Color.Black)
-                                .size(190.dp, height = 360.dp))
+                                .size(190.dp, height = 350.dp))
 
                         Image(
                             painter = painterResource(id = item[page].image), // Reference your image resource
@@ -149,7 +153,7 @@ fun OnBoardingPager(
                             modifier = Modifier
                                 //.offset(x = 100.dp, y = 5.dp)
                                 //.shadow(elevation = 10.dp, shape = RoundedCornerShape(15.dp), clip = false)
-                                .size(260.dp, height = 360.dp)
+                                .size(250.dp, height = 350.dp)
                                 //.shadow(elevation = 10.dp, shape = RoundedCornerShape(10.dp), ambientColor = Color.Red, spotColor = Color.Yellow)
                                 //.align(alignment = Alignment.CenterHorizontally)
                             // Optional parameters: contentScale, colorFilter, alpha, etc.
@@ -189,7 +193,7 @@ fun OnBoardingPager(
 
             if (pagerState.currentPage == 2) {
                 Box(
-                    modifier = Modifier.padding(top = 32.dp, start = 32.dp, end = 32.dp)
+                    modifier = Modifier.padding(top = 16.dp, start = 32.dp, end = 32.dp)
                 ) {
                     btnNormal(
                         name = "Ir al login",
@@ -220,7 +224,7 @@ fun IndicatorPage(currentPage: Int) {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             //.background(Color.Blue)
-            .padding(top = 40.dp),
+            .padding(top = 16.dp),
     ) {
         repeat(3) {
             Indicator(isSelect = it == currentPage)

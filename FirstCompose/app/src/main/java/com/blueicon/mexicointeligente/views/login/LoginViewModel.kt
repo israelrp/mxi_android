@@ -47,7 +47,7 @@ class LoginViewModel @Inject constructor(
     var showBiometric by mutableStateOf(false)
         private set
 
-    private val _login = MutableStateFlow<LoginResponse>(LoginResponse(false, "",
+    private val _login = MutableStateFlow(LoginResponse(false, "",
         "", 0, 0))
     val login = _login.asStateFlow()
 

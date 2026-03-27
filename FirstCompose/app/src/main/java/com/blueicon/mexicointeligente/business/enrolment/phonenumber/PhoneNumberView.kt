@@ -197,7 +197,7 @@ fun ContentPhoneNumberView(navController: NavController, viewModel: PhoneNumberV
                     decorationBox = { innerTextField ->
                         if (phone.isEmpty()) {
                             Text(
-                                "Ingresa tu número celular a 10 digitos",
+                                "Número celular a 10 digitos",
                                 fontSize = 13.sp,
                                 fontFamily = openSansFamily,
                                 fontWeight = FontWeight.Normal,

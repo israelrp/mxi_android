@@ -134,7 +134,7 @@ fun ContentMyearningsView(navController: NavController, myearningsViewModel: Mye
                             text = {
                                 Text(
                                     text = title,
-                                    fontSize = 13.sp,
+                                    fontSize = 12.sp,
                                     fontFamily = openSansFamily,
                                     fontWeight = FontWeight.Normal,
                                     color = if (selectedTabIndex == index) Color.Black else Color.Black
@@ -154,7 +154,7 @@ fun ContentMyearningsView(navController: NavController, myearningsViewModel: Mye
 
             searchBar(typeSelected)
 
-            Text(
+            /*Text(
                 text = "$typeSelected",
                 fontSize = 20.sp,
                 fontFamily = openSansFamily,
@@ -164,7 +164,7 @@ fun ContentMyearningsView(navController: NavController, myearningsViewModel: Mye
                 modifier = Modifier
                     .padding(start = 24.dp, end = 24.dp, top = 32.dp, bottom = 8.dp)
                     .fillMaxWidth()
-            )
+            )*/
 
             LazyColumn(
                 modifier = Modifier

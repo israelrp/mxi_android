@@ -15,4 +15,5 @@ object Constants {
 
     const val LOGIN_END_POINT = "login"
     const val CREATE_REALSTATE = "create_realstate"
+    const val PERMISSION_LOCATION_KEY = "permission_location"
 }

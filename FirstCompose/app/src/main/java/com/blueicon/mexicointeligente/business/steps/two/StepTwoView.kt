@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -62,6 +63,7 @@ import com.blueicon.mexicointeligente.business.myaccount.bankdetail.radioFactura
 import com.blueicon.mexicointeligente.business.myearnings.earningdetail.optionsContent2
 import com.blueicon.mexicointeligente.business.myearnings.earningdetail.statusComponent
 import com.blueicon.mexicointeligente.business.myearnings.infoView
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.StepIndicator
 import com.blueicon.mexicointeligente.components.genericCenterAlignedTopAppBar
 import com.blueicon.mexicointeligente.components.genericMenu
@@ -118,13 +120,7 @@ fun ContentStepTwoView(navController: NavController) {
     val isCheckedOk = remember { mutableStateOf(false) }
     val isCheckedPackage = remember { mutableStateOf(false) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
+    GenericBox {
         Row(
             modifier = Modifier
                 .padding(top = 24.dp, start = 16.dp, end = 16.dp)
@@ -259,8 +255,7 @@ fun ContentStepTwoView(navController: NavController) {
                 )
             }
         }
-    }//End Box
-
+    }
 }
 
 @Composable
@@ -355,17 +350,31 @@ fun radioPackage(modifier: Modifier = Modifier, isCheckedPackage: MutableState<B
                         )
                 )
                 {
-                    Text(
-                        text = text,
-                        fontSize = 16.sp,
-                        fontFamily = openSansFamily,
-                        fontWeight = FontWeight.Bold,
-                        color = colorResource(id = R.color.redTitles),
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier
-                            .padding(start = 16.dp, end = 16.dp, top = 16.dp)
-                            .fillMaxWidth()
-                    )
+
+                    Row {
+                        Text(
+                            text = text,
+                            fontSize = 16.sp,
+                            fontFamily = openSansFamily,
+                            fontWeight = FontWeight.Bold,
+                            color = colorResource(id = R.color.redTitles),
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier
+                                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+                                .weight(3f)
+                        )
+
+                        RadioButton(
+                            selected = (text == selectedOption),
+                            onClick = null, // null recommended for accessibility with screen readers
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = colorResource(id = R.color.redTitles), // Color cuando está seleccionado
+                                unselectedColor = Color.Black // Color cuando no está seleccionado
+                            ),
+                            modifier = Modifier.weight(0.5f)
+                                .padding(top = 16.dp)
+                        )
+                    }
 
                     Text(
                         text = "Servicios jurídicos, investigación y asistencia 24/7",

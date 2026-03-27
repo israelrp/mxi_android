@@ -31,6 +31,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -51,8 +53,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
 import com.blueicon.mexicointeligente.ui.theme.openSansFamily
+import com.blueicon.mexicointeligente.utils.StorePreferences
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,6 +75,9 @@ fun HomeView(navController: NavController, viewModel: HomeViewModel) {
 @Composable
 fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
 
+    val context = LocalContext.current
+    val dataStore = StorePreferences(context)
+    val store = dataStore.getStatusPermissionLocation.collectAsState(initial = false)
     var isLoading by remember { mutableStateOf(false) }
     var isOkGoToSteps by remember { mutableStateOf(false) }
     var pageTitle by remember { mutableStateOf("Cargando...") }
@@ -80,6 +89,15 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
             Manifest.permission.ACCESS_FINE_LOCATION
         )
     )
+
+    LaunchedEffect(permissionsState.allPermissionsGranted) {
+        if (permissionsState.allPermissionsGranted && !store.value) {
+            navController.navigate("StepOne")
+            CoroutineScope(Dispatchers.IO).launch {
+                dataStore.saveStatusPermissionLocation(true)
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -123,7 +141,7 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
 
                 }
 
-                Row(
+                /*Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
@@ -138,7 +156,7 @@ fun ContentHomeView(navController: NavController, viewModel: HomeViewModel) {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))*/
 
                 menuCard(
                     value = listOperations[2],

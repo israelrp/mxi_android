@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -39,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.blueicon.mexicointeligente.R
 import com.blueicon.mexicointeligente.business.home.menuCard
+import com.blueicon.mexicointeligente.components.GenericBox
 import com.blueicon.mexicointeligente.components.StepIndicator
 import com.blueicon.mexicointeligente.components.genericCenterAlignedTopAppBar
 import com.blueicon.mexicointeligente.components.genericMenu
@@ -115,13 +117,7 @@ fun ContentStepOneView(navController: NavController) {
     val cameraPositionState: CameraPositionState = rememberCameraPositionState()
     val markerState: MarkerState = rememberMarkerState()
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 80.dp)
-            .background(Color.White)
-    )
-    {
+    GenericBox {
         Row(
             modifier = Modifier
                 .padding(top = 24.dp, start = 16.dp, end = 16.dp)
@@ -245,7 +241,5 @@ fun ContentStepOneView(navController: NavController) {
                 fontWeight = FontWeight.SemiBold,
             )
         }
-
-    }//End Box
-
+    }
 }

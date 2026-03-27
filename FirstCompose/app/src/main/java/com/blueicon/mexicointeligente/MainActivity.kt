@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
 
         window.statusBarColor = Color(red = 164, green = 0, blue = 41, alpha = 255).toArgb()
         window.navigationBarColor = Color(red = 164, green = 0, blue = 41, alpha = 255).toArgb()
-        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
 
         super.onCreate(savedInstanceState)
 
